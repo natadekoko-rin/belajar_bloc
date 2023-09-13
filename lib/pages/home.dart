@@ -2,6 +2,7 @@ import 'package:belajar_bloc/bloc/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+//udah ini aja
 class HomePage extends StatelessWidget {
   Counter mycounter = Counter();
 
