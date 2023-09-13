@@ -9,41 +9,37 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Block Builder'),
+          title: const Text('Block Listener'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // StreamBuilder(
-            //     initialData: mycounter.init,
-            //     stream: mycounter.stream,
-            //     builder: (context, snapshot) {
-            //       return Text(
-            //         "${snapshot.data}",
-            //         style: const TextStyle(fontSize: 50),
-            //       );
-            //     }),
-
-            // tipe counter dan tipe statenya
-            BlocBuilder<Counter, int>(
+            BlocListener(
               bloc: mycounter,
-              // akan build widget baru jika trus
-              buildWhen: (prev, curent) {
-                // print(prev);
-                // print(curent);
-                // return false;
-                if (curent % 2 == 0) {
+              listener: (context, state) {
+                //ini akan dijalankan ketika terjadi perubahan di bloc builder
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: Duration(seconds: 2),
+                  content: Text("Sudah mencapai 15"),
+                ));
+              },
+              listenWhen: (previous, current) {
+                if (current == 10) {
                   return true;
                 } else {
                   return false;
                 }
               },
-              builder: (context, state) {
-                return Text(
-                  "$state",
-                  style: const TextStyle(fontSize: 50),
-                );
-              },
+              child: BlocBuilder<Counter, int>(
+                // tipe counter dan tipe statenya
+                bloc: mycounter,
+                builder: (context, state) {
+                  return Text(
+                    "$state",
+                    style: const TextStyle(fontSize: 50),
+                  );
+                },
+              ),
             ),
             SizedBox(height: 50),
             Row(
