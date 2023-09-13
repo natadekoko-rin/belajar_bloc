@@ -9,30 +9,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Block Builder'),
+          title: const Text('Block Consumer'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // StreamBuilder(
-            //     initialData: mycounter.init,
-            //     stream: mycounter.stream,
-            //     builder: (context, snapshot) {
-            //       return Text(
-            //         "${snapshot.data}",
-            //         style: const TextStyle(fontSize: 50),
-            //       );
-            //     }),
-
-            // tipe counter dan tipe statenya
-            BlocBuilder<Counter, int>(
+            BlocConsumer<Counter, int>(
               bloc: mycounter,
-              // akan build widget baru jika trus
-              buildWhen: (prev, curent) {
-                // print(prev);
-                // print(curent);
-                // return false;
-                if (curent % 2 == 0) {
+              listener: (context, state) {
+                //ini akan dijalankan ketika terjadi perubahan di bloc builder
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: Duration(seconds: 2),
+                  content: Text("Kelipatan 2"),
+                ));
+              },
+              listenWhen: (previous, current) {
+                if (current % 2 == 0) {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              buildWhen: (previous, current) {
+                if (current >= 10) {
                   return true;
                 } else {
                   return false;
