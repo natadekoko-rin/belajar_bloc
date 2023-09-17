@@ -10,6 +10,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //context adalah seperti akar
+
+    Counter mycounter = BlocProvider.of<Counter>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Bloc Provider'),
@@ -27,8 +30,7 @@ class HomePage extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     // mycounter.decrement();
-                    BlocProvider.of<Counter>(context)
-                        .decrement(); // jenisnya counter
+                    mycounter.decrement(); // jenisnya counter
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: const SizedBox(
@@ -54,7 +56,7 @@ class HomePage extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     // mycounter.increment();
-                    BlocProvider.of<Counter>(context).increment();
+                    mycounter.increment();
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
