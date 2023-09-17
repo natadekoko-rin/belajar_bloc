@@ -1,67 +1,72 @@
 import 'package:belajar_bloc/bloc/counter.dart';
+import 'package:belajar_bloc/pages/data_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
+  // inisial class counter
   Counter mycounter = Counter();
+  Counter mycounter2 = Counter();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Block Builder'),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // StreamBuilder(
-            //     initialData: mycounter.init,
-            //     stream: mycounter.stream,
-            //     builder: (context, snapshot) {
-            //       return Text(
-            //         "${snapshot.data}",
-            //         style: const TextStyle(fontSize: 50),
-            //       );
-            //     }),
-
-            // tipe counter dan tipe statenya
-            BlocBuilder<Counter, int>(
-              bloc: mycounter,
-              // akan build widget baru jika trus
-              buildWhen: (prev, curent) {
-                // print(prev);
-                // print(curent);
-                // return false;
-                if (curent % 2 == 0) {
-                  return true;
-                } else {
-                  return false;
-                }
-              },
-              builder: (context, state) {
-                return Text(
-                  "$state",
-                  style: const TextStyle(fontSize: 50),
-                );
-              },
-            ),
-            SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      mycounter.decrement();
-                    },
-                    icon: const Icon(Icons.remove)),
-                IconButton(
-                    onPressed: () {
-                      mycounter.increment();
-                    },
-                    icon: const Icon(Icons.add))
-              ],
-            )
-          ],
-        ));
+      appBar: AppBar(title: Text('Bloc Provider'), actions: []),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // button minus
+              Material(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(16),
+                child: InkWell(
+                  onTap: () {
+                    mycounter.decrement();
+                  },
+                  borderRadius: BorderRadius.circular(16),
+                  child: const SizedBox(
+                    height: 100,
+                    width: 70,
+                    // color: Colors.blue,
+                    child: Center(
+                      child: Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // widget data counter
+              DataWidget(mycounter: mycounter),
+              // 1button plus
+              Material(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(16),
+                child: InkWell(
+                  onTap: () {
+                    mycounter.increment();
+                  },
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    height: 100,
+                    width: 70,
+                    // color: Colors.blue,
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
