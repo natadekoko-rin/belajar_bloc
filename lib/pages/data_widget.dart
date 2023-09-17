@@ -6,13 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DataWidget extends StatelessWidget {
   DataWidget({
     super.key,
-    required this.mycounter, //lemparan dari luar
+    // required this.mycounter, //lemparan dari luar
   });
 
   //data yg diambil dari constructor (data lemparan) data ini sama dengan data yg diinisialisasi di home.dart
-  final Counter mycounter;
-
-  Counter mycounter2 = Counter();
+  // final Counter mycounter;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,8 @@ class DataWidget extends StatelessWidget {
       height: 100,
       width: 200,
       color: Colors.red,
-      child: CenterWidget(mycounter: mycounter),
+      // child: CenterWidget(mycounter: mycounter),
+      child: CenterWidget(),
     );
   }
 }
